@@ -953,3 +953,7 @@ alias lvim="/home/jefbalmes/.local/bin/lvim"
 # Mac
 #alias lvim="$HOME/.local/bin/lvim"
 #alias lvim="/Users/jefbalmes/.local/bin/lvim"
+
+# Set wallpaper
+#alias w="feh --bg-fill --randomize ~/.config/wallpapers/"
+alias w="wal -q -i ~/.config/wallpapers/"
