@@ -337,3 +337,16 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 #  pywal
 #---------------------------
 export PATH="${PATH}:${HOME}/.local/bin/"
+
+#---------------------------
+# for xserver and pulseaudio server
+#---------------------------
+export HOST_IP="$(ip route |awk '/^default/{print $3}')"
+export DISPLAY="$HOST_IP:0.0"
+export LIBGL_ALWAYS_INDIRECT=1
+export PULSE_SERVER="tcp:$HOST_IP"
+
+#---------------------------
+# set keyboard layout
+#---------------------------
+setxkbmap us
