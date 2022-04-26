@@ -352,6 +352,11 @@ export PATH="${PATH}:${HOME}/.local/bin/"
 #export PULSE_SERVER="tcp:$HOST_IP"
 
 #---------------------------
+# for flatpak packages
+#---------------------------
+export $(dbus-launch)
+
+#---------------------------
 # set keyboard layout
 #---------------------------
 setxkbmap us
