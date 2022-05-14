@@ -333,6 +333,11 @@ export FZF_DEFAULT_COMMAND="fd --type f"
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
+#----------------------------------
+# Adds `~/.local/bin` to $PATH
+#----------------------------------
+export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
+
 #---------------------------
 #  pywal
 #---------------------------
