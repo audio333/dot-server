@@ -334,14 +334,14 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 #----------------------------------
-# Adds `~/.local/bin` to $PATH
+# Adds `~/.local/bin/statusbar/` to $PATH
 #----------------------------------
-export PATH="$PATH:${$(find ~/.local/bin -type d -printf %p:)%%:}"
+export PATH="${PATH}:${HOME}/.local/bin/statusbar/"
 
 #---------------------------
 #  pywal
 #---------------------------
-#export PATH="${PATH}:${HOME}/.local/bin/"
+export PATH="${PATH}:${HOME}/.local/bin/"
 
 # Import colorscheme from 'wal' asynchronously
 # &   # Run the process in the background.
