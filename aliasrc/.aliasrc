@@ -957,3 +957,7 @@ alias lvim="/home/jefbalmes/.local/bin/lvim"
 # Set wallpaper
 #alias w="feh --bg-fill --randomize ~/.config/wallpapers/"
 alias w="wal -q -i ~/.config/wallpapers/"
+
+# Fortune
+alias b="fortune ~/.config/fortune/bible-verse | cowsay -f tux"
+
