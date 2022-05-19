@@ -137,9 +137,10 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 #----------------------------------
-# Adds `~/.local/bin/statusbar/` to $PATH
+# Added to $PATH
 #----------------------------------
-export PATH="${PATH}:${HOME}/.local/bin/statusbar/"
+export PATH="${PATH}:${HOME}/.local/bin/statusbar/"  #scripts for statusbar
+export PATH="${PATH}:${HOME}/torrentflix/bin/"       #torrentflix
 
 #---------------------------
 #  pywal
@@ -172,7 +173,11 @@ export $(dbus-launch)
 setxkbmap us
 xmodmap ~/.Xmodmap
 
+#---------------------------
+# Fortune
+#---------------------------
 fortune ~/.config/fortune/bible-verse | cowsay -f tux
+
 #---------------------------
 # zsh plugins
 # Load syntax highlighting; should be last.
