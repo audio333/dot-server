@@ -172,6 +172,7 @@ export $(dbus-launch)
 setxkbmap us
 xmodmap ~/.Xmodmap
 
+fortune ~/.config/fortune/bible-verse | cowsay -f tux
 #---------------------------
 # zsh plugins
 # Load syntax highlighting; should be last.
