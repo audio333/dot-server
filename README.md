@@ -5,10 +5,10 @@
 * `$ sudo apt install rsync neofetch htop tree trash-cli`
 
 ### Github
-* [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh#basic-installation)
-    * `$ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
-* [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
-    * `$ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions`
+* [fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting)
+    * `$ git clone https://github.com/zdharma-continuum/fast-syntax-highlighting`
+* [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+    * `$ git clone https://github.com/zsh-users/zsh-autosuggestions`
 * [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
     * `$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`
     * `$ source ~/.zshrc`
@@ -34,6 +34,9 @@
     * `$ git clone https://github.com/kabinspace/AstroVim ~/.config/nvim`
     * `$ nvim +PackerSync`
 
+### Removed
+* [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh#basic-installation)
+    * `$ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"`
 
 ### Fresh Install Info
     sudo apt install git stow
