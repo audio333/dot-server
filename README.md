@@ -33,6 +33,11 @@
 * [AstroVim](https://github.com/kabinspace/AstroVim#clone-the-repository)
     * `$ git clone https://github.com/kabinspace/AstroVim ~/.config/nvim`
     * `$ nvim +PackerSync`
+* [github-cli](https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian-ubuntu-linux-raspberry-pi-os-apt)
+    * `$ curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg`
+    * `$ echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null`
+    * `$ sudo apt update`
+    * `$ sudo apt install gh`
 
 ### Removed
 * [ohmyzsh](https://github.com/ohmyzsh/ohmyzsh#basic-installation)
