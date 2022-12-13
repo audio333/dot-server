@@ -182,5 +182,5 @@ fortune ~/.config/fortune/bible-verse | cowsay -f tux
 # zsh plugins
 # Load syntax highlighting; should be last.
 #---------------------------
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
