@@ -129,6 +129,8 @@ eval "$(fasd --init auto)"
 export FZF_DEFAULT_OPS="--extended"
 export FZF_DEFAULT_COMMAND="fd --type f"
 # export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/completion.zsh
 
 #---------------------------
 #  Node Version Manager
