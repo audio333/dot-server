@@ -132,11 +132,17 @@ export FZF_DEFAULT_COMMAND="fd --type f"
 source /usr/share/doc/fzf/examples/key-bindings.zsh
 source /usr/share/doc/fzf/examples/completion.zsh
 
+if [ -x "$(command -v fzf)"  ]
+then
+  source /usr/share/fzf/shell/key-bindings.bash
+fi
+
 #---------------------------
 #  Node Version Manager
 #---------------------------
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 #----------------------------------
 # Added to $PATH
@@ -186,3 +192,6 @@ fortune ~/.config/fortune/bible-verse | cowsay -f tux
 #---------------------------
 source ~/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
+
+# Distrobox
+xhost +si:localuser:$USER
