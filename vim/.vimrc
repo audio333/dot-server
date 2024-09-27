@@ -123,3 +123,12 @@ augroup END
 "---------------------------------
 autocmd BufWinLeave *.* mkview
 autocmd BufWinEnter *.* silent loadview
+
+"---------------------------------
+"  VimWiki
+"---------------------------------
+set nocompatible
+filetype plugin on
+syntax on
+
+let g:vimwiki_list = [{'path': '~/Documents/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
