@@ -52,14 +52,19 @@ setopt SHARE_HISTORY
 setopt INTERACTIVE_COMMENTS        # pound sign in interactive prompt
 HISTSIZE=10000000
 SAVEHIST=10000000
-HISTFILE=~/.zsh_history            # where to save zsh history
+HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"   # where to save zsh history
+
+# Completion files: Use XDG dirs
+[ -d "$XDG_CACHE_HOME"/zsh ] || mkdir -p "$XDG_CACHE_HOME"/zsh
 
 #--------------------------------
 # load alias/functions that works with both zsh/bash
 #--------------------------------
-if [[ -f ~/.aliasrc ]]; then
-    source ~/.aliasrc
-fi
+[ -f "${XDG_CONFIG_HOME}/shell/aliases" ] && source "${XDG_CONFIG_HOME}/shell/aliases"
+
+#if [[ -f ~/.aliasrc ]]; then
+#    source ~/.aliasrc
+#fi
 
 #--------------------------------
 # Basic auto/tab complete:
@@ -129,13 +134,13 @@ eval "$(fasd --init auto)"
 export FZF_DEFAULT_OPS="--extended"
 export FZF_DEFAULT_COMMAND="fd --type f"
 # export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-source /usr/share/doc/fzf/examples/key-bindings.zsh
-source /usr/share/doc/fzf/examples/completion.zsh
+#source /usr/share/doc/fzf/examples/key-bindings.zsh
+#source /usr/share/doc/fzf/examples/completion.zsh
 
-if [ -x "$(command -v fzf)"  ]
-then
-  source /usr/share/fzf/shell/key-bindings.bash
-fi
+#if [ -x "$(command -v fzf)"  ]
+#then
+  #source /usr/share/fzf/shell/key-bindings.bash
+#fi
 
 #---------------------------
 #  Node Version Manager
@@ -173,13 +178,13 @@ export PATH="${PATH}:${HOME}/.local/bin/"
 #---------------------------
 # for flatpak packages
 #---------------------------
-export $(dbus-launch)
+#export $(dbus-launch)
 
 #---------------------------
 # set keyboard layout
 #---------------------------
 setxkbmap us
-xmodmap ~/.Xmodmap
+xmodmap ~/.config/x11/.Xmodmap
 
 #---------------------------
 # Fortune
@@ -190,8 +195,10 @@ fortune ~/.config/fortune/bible-verse | cowsay -f tux
 # zsh plugins
 # Load syntax highlighting; should be last.
 #---------------------------
-source ~/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
+source ~/.config/zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh 2>/dev/null
 
 # Distrobox
-xhost +si:localuser:$USER
+#xhost +si:localuser:$USER
+
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh

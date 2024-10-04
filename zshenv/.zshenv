@@ -1,14 +1,20 @@
-# Default Apps
+# default apps
 export EDITOR="vim"
-export READER="zathura"
-export VISUAL="vim"
-export TERMINAL="alacritty"
-export BROWSER="brave"
-export VIDEO="mpv"
-export IMAGE="sxiv"
-export COLORTERM="truecolor"
-export OPENER="xdg-open"
-export PAGER="less"
+export TERMINAL="st"
+export BROWSER="brave-browser"
+
+# cleaning up home folder
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_DATA_HOME="$HOME/.local/share"
+export XDG_CACHE_HOME="$HOME/.cache"
+
+export XINITRC="$XDG_CONFIG_HOME/x11/xinitrc"
+export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
+export HISTFILE="$XDG_DATA_HOME"/history
+#export HISTFILE="$XDG_STATE_HOME"/zsh/history
+#export HISTFILE="${XDG_STATE_HOME}"/bash/history
+export WGETRC="$XDG_CONFIG_HOME"/wgetrc
+export NVM_DIR="$XDG_DATA_HOME"/nvm
 
 # lf icons
 # icon issue: /etc/locale.conf "LANG=en_US.UTF-8"

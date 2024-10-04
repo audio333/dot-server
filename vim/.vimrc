@@ -131,4 +131,4 @@ set nocompatible
 filetype plugin on
 syntax on
 
-let g:vimwiki_list = [{'path': '~/Documents/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [{'path': '~/document/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]

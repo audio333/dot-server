@@ -6,17 +6,19 @@
 
 ### Github
 * [fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting)
-    * `$ git clone https://github.com/zdharma-continuum/fast-syntax-highlighting`
+    * `$ git clone https://github.com/zdharma-continuum/fast-syntax-highlighting $XDG_CONFIG_HOME/zsh`
 * [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
-    * `$ git clone https://github.com/zsh-users/zsh-autosuggestions`
+    * `$ git clone https://github.com/zsh-users/zsh-autosuggestions $XDG_CONFIG_HOME/zsh`
 * [nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
     * `$ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash`
     * `$ source ~/.zshrc`
     * `$ nvm install --lts`
     * `$ nvm ls`
 * [fzf](https://github.com/junegunn/fzf#using-git)
-    * `$ git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf`
-    * `$ ~/.fzf/install`
+    * `$ ~/.fzf/uninstall`
+    * `$ rm -rf ~/.fzf`
+    * `$ git clone --depth 1 https://github.com/junegunn/fzf.git $XDG_DATA_HOME/fzf`
+    * `$ $XDG_DATA_HOME/fzf/install --xdg`
 * [vundle](https://github.com/VundleVim/Vundle.vim#quick-start)
     * `$ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim`
 * [nvim](https://github.com/neovim/neovim/wiki/Installing-Neovim#appimage-universal-linux-package)

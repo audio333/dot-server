@@ -856,8 +856,8 @@ file-type() { file --mime-type -b "$@" ;}
 #-------- Function Informations {{{
 #------------------------------------------------------
 
-function    osr              { shutdown -r now; }
-function    osh              { shutdown -h now; }
+function    osr              { sudo shutdown -r now; }
+function    osh              { sudo shutdown -h now; }
 
 #function    mfloppy          { mount /dev/fd0 /mnt/floppy; }
 #function    umfloppy         { umount /mnt/floppy; }

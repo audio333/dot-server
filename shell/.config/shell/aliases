@@ -1,0 +1,112 @@
+[ -f "$XINITRC" ] && alias startx="startx $XINITRC"  # use $XINITRC variable if file exists.
+
+# CONFIGURATION 
+alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+
+# dot-ubuntu
+cfg-xmodmap() { $EDITOR $XDG_CONFIG_HOME/x11/.Xmodmap ;}
+cfg-xresources() { $EDITOR $XDG_CONFIG_HOME/x11/.Xresources ;}
+cfg-xinitrc() { $EDITOR $XDG_CONFIG_HOME/x11/xinitrc ;}
+cfg-sxhkd() { $EDITOR $XDG_CONFIG_HOME/sxhkd/sxhkdrc ;}
+cfg-qutebrowser() { $EDITOR ~/.config/qutebrowser/qutebrowser.conf ;}
+cfg-qutebrowser-keys() { $EDITOR ~/.config/qutebrowser/keys.conf ;}
+cfg-qutebrowser-quickmarks() { $EDITOR ~/.config/qutebrowser/quickmarks ;}
+cfg-transmission-daemon() { $EDITOR ~/.config/transmission-daemon/settings.json ;}
+cfg-transmission-ncurse() { $EDITOR ~/.config/transmission-remote-cli/settings.cfg ;}
+cfg-transmission-tremc() { $EDITOR ~/.config/tremc/settings.cfg ;}
+cfg-torrentflix() { torrentflix --config=$EDITOR ;}
+cfg-pulseaudio() { sudo $EDITOR /etc/pulse/default.pa ;}
+cfg-bashrc() { $EDITOR ~/.bashrc ;}
+
+# dot-server
+cfg-zshenv() { $EDITOR ~/.zshenv ;}
+cfg-zshrc() { $EDITOR $XDG_CONFIG_HOME/zsh/.zshrc ;}
+cfg-zprofile() { $EDITOR $XDG_CONFIG_HOME/zsh/.zprofile ;}
+cfg-aliases() { $EDITOR $XDG_CONFIG_HOME/shell/aliases ;}
+cfg-ranger() { $EDITOR ~/.config/ranger/rc.conf ;}
+cfg-ranger-rifle() { $EDITOR ~/.config/ranger/rifle.conf ;}
+cfg-ranger-commands() { $EDITOR ~/.config/ranger/commands.py ;}
+cfg-nvim() { $EDITOR ~/.config/nvim/init.vim ;}
+cfg-vimrc() { $EDITOR ~/.vimrc ;}
+cfg-tmuxrc() { $EDITOR ~/.tmux.conf ;}
+
+# dot-xui
+cfg-newsboat() { $EDITOR $XDG_CONFIG_HOME/newsboat/config ;}
+cfg-newsboat-urls() { $EDITOR $XDG_CONFIG_HOME/newsboat/urls ;}
+cfg-mpv() { $EDITOR ~/.config/mpv/mpv.conf ;}
+cfg-mpv-input() { $EDITOR ~/.config/mpv/input.conf ;}
+cfg-alacritty() { $EDITOR ~/.config/alacritty/alacritty.yml ;}
+cfg-ytfzf() { $EDITOR ~/.config/ytfzf/conf.sh ;}
+
+# dot-dbox
+cfg-lf() { $EDITOR ~/.config/lf/lfrc ;}
+
+# system 
+cfg-hosts() { sudo $EDITOR /etc/hosts ;}
+cfg-ssh-client() { sudo $EDITOR /etc/ssh/ssh_config ;}
+cfg-ssh-daemon() { sudo $EDITOR /etc/ssh/sshd_config ;}
+cfg-fstab() { sudo $EDITOR /etc/fstab ;}
+cfg-group() { sudo $EDITOR /etc/group ;}
+cfg-grub() { sudo $EDITOR /etc/default/grub ;}
+cfg-samba() { sudo $EDITOR /etc/samba/smb.conf ;}
+cfg-networkmanager() { sudo $EDITOR /etc/NetworkManager/NetworkManager.conf ;}
+
+# other apps
+cfg-nanorc() { $EDITOR ~/.nanorc;}
+cfg-mplayer() { $EDITOR ~/.mplayer/config ;}
+cfg-comp() { $EDITOR ~/.config/mpv/settings.ini ;}
+cfg-rofibangs() { $EDITOR ~/.config/rofi/launchers/rofi-bangs ;}
+cfg-mpd() { $EDITOR ~/.mpd/mpd.conf ;}
+cfg-ncmpcpp() { $EDITOR ~/.ncmpcpp/config ;}
+cfg-ncmpcpp-bindings() { $EDITOR ~/.ncmpcpp/bindings ;}
+cfg-retroarch() { $EDITOR ~/.config/retroarch/retroarch.cfg ;}
+cfg-emulationstation() { $EDITOR ~/.emulationstation/es_systems.cfg ;}
+
+# other configs
+cfg-inputrc() { $EDITOR ~/.inputrc ;}
+cfg-profile() { $EDITOR ~/.profile ;}
+
+# RELOAD CONFIGS
+rld-zshrc() { source $XDG_CONFIG_HOME/zsh/.zshrc ;}
+rld-xmodmap() { xmodmap $XDG_CONFIG_HOME/x11/.Xmodmap ;}
+rld-hyperkey() { xmodmap $XDG_CONFIG_HOME/x11/.Xmodmap; killall xcape ; xcape -e 'Super_L=Escape' ; }
+rld-xresources() { xrdb -load $XDG_CONFIG_HOME/x11/.Xresources ;}
+rld-xcape() { killall xcape ; xcape -e 'Super_L=Escape' ;}
+rld-xmodmap-uskeyboardlayout() { setxkbmap -layout us ;} # reset back to US keyboard http://unix.stackexchange.com/a/151046
+rld-bashrc() { source ~/.bashrc ;}
+rld-font() { fc-cache -v -f ;}
+
+
+# settings for common commands
+alias cp="cp -iv"
+alias mv="mv -iv"
+alias rm="rm -vI"
+alias mkdir="mkdir -pv"
+alias grep='grep --color=auto'
+alias ls="ls -hN --color=auto --group-directories-first"
+[ -x "$(command -v exa)" ] && alias ls="exa --icons --group-directories-first"
+
+# application aliases
+alias v="$EDITOR"
+alias vw="$EDITOR -c VimwikiIndex"
+alias nb="newsboat"
+alias za="zathura"
+
+# git aliases
+alias g="git"
+alias gl="git log --graph --abbrev-commit --decorate --format=format:'%C(bold green)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold yellow)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)' --all"
+alias gs="git status"
+alias gd="git diff"
+alias gA="git add"
+alias gC="git commit"
+alias gb="git branch"
+alias gcl="git clone"
+alias gcl1="git clone --depth 1"
+
+# yt aliases
+alias yt-l="ytfzf -L | xargs -0 >> links.txt" # use tab for multiple selection
+alias yt-m4a="tsp yt-dlp --format "139" -a links.txt"
+alias yt-360p="tsp yt-dlp --format "134+139" -a links.txt"
+alias yt-480p="tsp yt-dlp --format "135+139" -a links.txt"
+alias yt-720p="tsp yt-dlp --format "136+139" -a links.txt"
+alias yt-1080p="tsp yt-dlp --format "137+139" -a links.txt"
