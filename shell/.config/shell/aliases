@@ -1,7 +1,7 @@
 [ -f "$XINITRC" ] && alias startx="startx $XINITRC"  # use $XINITRC variable if file exists.
 
 # CONFIGURATION 
-alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
+#alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 
 # dot-ubuntu
 cfg-xmodmap() { $EDITOR $XDG_CONFIG_HOME/x11/.Xmodmap ;}
@@ -53,14 +53,14 @@ cfg-networkmanager() { sudo $EDITOR /etc/NetworkManager/NetworkManager.conf ;}
 
 # other apps
 cfg-nanorc() { $EDITOR ~/.nanorc;}
-cfg-mplayer() { $EDITOR ~/.mplayer/config ;}
-cfg-comp() { $EDITOR ~/.config/mpv/settings.ini ;}
-cfg-rofibangs() { $EDITOR ~/.config/rofi/launchers/rofi-bangs ;}
-cfg-mpd() { $EDITOR ~/.mpd/mpd.conf ;}
-cfg-ncmpcpp() { $EDITOR ~/.ncmpcpp/config ;}
-cfg-ncmpcpp-bindings() { $EDITOR ~/.ncmpcpp/bindings ;}
-cfg-retroarch() { $EDITOR ~/.config/retroarch/retroarch.cfg ;}
-cfg-emulationstation() { $EDITOR ~/.emulationstation/es_systems.cfg ;}
+#cfg-mplayer() { $EDITOR ~/.mplayer/config ;}
+#cfg-comp() { $EDITOR ~/.config/mpv/settings.ini ;}
+#cfg-rofibangs() { $EDITOR ~/.config/rofi/launchers/rofi-bangs ;}
+#cfg-mpd() { $EDITOR ~/.mpd/mpd.conf ;}
+#cfg-ncmpcpp() { $EDITOR ~/.ncmpcpp/config ;}
+#cfg-ncmpcpp-bindings() { $EDITOR ~/.ncmpcpp/bindings ;}
+#cfg-retroarch() { $EDITOR ~/.config/retroarch/retroarch.cfg ;}
+#cfg-emulationstation() { $EDITOR ~/.emulationstation/es_systems.cfg ;}
 
 # other configs
 cfg-inputrc() { $EDITOR ~/.inputrc ;}
@@ -103,8 +103,14 @@ alias gb="git branch"
 alias gcl="git clone"
 alias gcl1="git clone --depth 1"
 
+# FUNCTIONS
+
 # yt aliases
+# requirements: install ytfzf yt-dlp task-spooler
+
+# search / select video:
 alias yt-l="ytfzf -L | xargs -0 >> links.txt" # use tab for multiple selection
+# choose format:
 alias yt-m4a="tsp yt-dlp --format "139" -a links.txt"
 alias yt-360p="tsp yt-dlp --format "134+139" -a links.txt"
 alias yt-480p="tsp yt-dlp --format "135+139" -a links.txt"

@@ -13,8 +13,10 @@ export ZDOTDIR="$XDG_CONFIG_HOME/zsh"
 export HISTFILE="$XDG_DATA_HOME"/history
 #export HISTFILE="$XDG_STATE_HOME"/zsh/history
 #export HISTFILE="${XDG_STATE_HOME}"/bash/history
-export WGETRC="$XDG_CONFIG_HOME"/wgetrc
+export WGETRC="$XDG_CONFIG_HOME"/wget/wgetrc
 export NVM_DIR="$XDG_DATA_HOME"/nvm
+export LESSHISTFILE=-
+#export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # This line will break some DMs.
 
 # lf icons
 # icon issue: /etc/locale.conf "LANG=en_US.UTF-8"
