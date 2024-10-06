@@ -15,7 +15,7 @@ export HISTFILE="$XDG_DATA_HOME"/history
 #export HISTFILE="${XDG_STATE_HOME}"/bash/history
 export WGETRC="$XDG_CONFIG_HOME"/wget/wgetrc
 export NVM_DIR="$XDG_DATA_HOME"/nvm
-export LESSHISTFILE=-
+export LESSHISTFILE="-"
 #export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # This line will break some DMs.
 
 # lf icons

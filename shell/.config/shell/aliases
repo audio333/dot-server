@@ -78,9 +78,11 @@ rld-font() { fc-cache -v -f ;}
 
 
 # settings for common commands
+# use "\" to default commands. ex: \ls
 alias cp="cp -iv"
 alias mv="mv -iv"
 alias rm="rm -vI"
+alias bc="bc -ql"
 alias mkdir="mkdir -pv"
 alias grep='grep --color=auto'
 alias ls="ls -hN --color=auto --group-directories-first"
@@ -105,14 +107,39 @@ alias gcl1="git clone --depth 1"
 
 # FUNCTIONS
 
-# yt aliases
+# YT
 # requirements: install ytfzf yt-dlp task-spooler
 
-# search / select video:
-alias yt-l="ytfzf -L | xargs -0 >> links.txt" # use tab for multiple selection
-# choose format:
-alias yt-m4a="tsp yt-dlp --format "139" -a links.txt"
-alias yt-360p="tsp yt-dlp --format "134+139" -a links.txt"
-alias yt-480p="tsp yt-dlp --format "135+139" -a links.txt"
-alias yt-720p="tsp yt-dlp --format "136+139" -a links.txt"
-alias yt-1080p="tsp yt-dlp --format "137+139" -a links.txt"
+## search / select video:
+#ytl() { ytfzf -L | xargs -0 >> ~/download/links.txt ;} # use tab for multiple selection
+
+## download videos/music; set a format / default format = 480p
+#ytd() { 
+#FORMAT="${1:-480p}"
+#LINKS="~/download/links.txt"
+#
+#case "$FORMAT" in
+#  m4a) tsp yt-dlp --format "139" -a $LINKS ;;
+#  360p) tsp yt-dlp --format "134+139" -a $LINKS ;;
+#  480p) tsp yt-dlp --format "135+139" -a $LINKS ;; #default format
+#  720p) tsp yt-dlp --format "136+139" -a $LINKS ;;
+#  1080p) tsp yt-dlp --format "137+139" -a $LINKS ;;
+#esac >/dev/null
+#}
+
+ytg() { 
+ARG="${1:-480p}" #set default format
+
+case "$ARG" in
+  m4a) FORMAT="139" ;;
+  360p) FORMAT="134+139" ;;
+  480p) FORMAT="135+139" ;;
+  720p) FORMAT="136+139" ;;
+  1080p) FORMAT="137+139" ;;
+esac >/dev/null
+
+for link in $(ytfzf -L | xargs)
+  do
+    tsp yt-dlp --format "${FORMAT}" "${link}"
+  done
+}
