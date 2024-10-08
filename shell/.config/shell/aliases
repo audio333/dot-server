@@ -41,6 +41,11 @@ cfg-ytfzf() { $EDITOR ~/.config/ytfzf/conf.sh ;}
 # dot-dbox
 cfg-lf() { $EDITOR ~/.config/lf/lfrc ;}
 
+# suckless
+cfg-dwm() { $EDITOR ~/source-code/dwm/config.h }
+cfg-dwmblocks() { $EDITOR ~/source-code/dwmblocks/config.h }
+cfg-st() { $EDITOR ~/source-code/st/config.h }
+
 # system 
 cfg-hosts() { sudo $EDITOR /etc/hosts ;}
 cfg-ssh-client() { sudo $EDITOR /etc/ssh/ssh_config ;}
@@ -105,6 +110,9 @@ alias gb="git branch"
 alias gcl="git clone"
 alias gcl1="git clone --depth 1"
 
+alias tree="tree -a -L 1"
+alias tree2="tree -a -L 2"
+
 # FUNCTIONS
 
 # YT
@@ -138,8 +146,28 @@ case "$ARG" in
   1080p) FORMAT="137+139" ;;
 esac >/dev/null
 
-for link in $(ytfzf -L | xargs)
-  do
-    tsp yt-dlp --format "${FORMAT}" "${link}"
-  done
+for link in $(ytfzf -L | xargs); do
+  tsp yt-dlp --format "${FORMAT}" "${link}"
+done
+}
+
+
+# play local videos / music
+play() {
+ARG="${1:-v}" # set default dir
+
+declare -a files
+declare -i i=1
+
+case "$ARG" in
+  v) DIR="$HOME/video" ;;
+  m) DIR="$HOME/music" ;;
+esac >/dev/null
+
+find $DIR | fzf -m --layout reverse | while read -r song; do
+  files[$i]="${song}"
+  ((i++))
+done
+
+mpv $files
 }
