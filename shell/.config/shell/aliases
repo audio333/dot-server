@@ -135,6 +135,11 @@ alias tree2="tree -a -L 2"
 #esac >/dev/null
 #}
 
+se() {
+  choice="$(find ~/.local/bin/ -mindepth 1 -printf '%P\n' | fzf)"
+  [ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
+}
+
 ytg() { 
 ARG="${1:-480p}" #set default format
 
