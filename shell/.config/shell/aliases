@@ -136,11 +136,11 @@ alias tree2="tree -a -L 2"
 #}
 
 se() {
-  choice="$(find ~/.local/bin/ -mindepth 1 -printf '%P\n' | fzf)"
+  choice="$(find ~/.local/bin/ -mindepth 1 -printf '%P\n' | fzf --layout reverse)"
   [ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
 }
 
-ytg() { 
+ts-ytd() { 
 ARG="${1:-480p}" #set default format
 
 case "$ARG" in
@@ -156,9 +156,14 @@ for link in $(ytfzf -L | xargs); do
 done
 }
 
+ts-ytp() { 
+for link in $(ytfzf -L | xargs); do
+  tsp mpv --quiet --geometry=-15-60 --autofit=854x480 --title="mpvfloat" "$link" >/dev/null 2>&1 
+done
+}
 
 # play local videos / music
-play() {
+ts-play() {
 ARG="${1:-v}" # set default dir
 
 declare -a files
@@ -169,10 +174,17 @@ case "$ARG" in
   m) DIR="$HOME/music" ;;
 esac >/dev/null
 
-find $DIR | fzf -m --layout reverse | while read -r song; do
-  files[$i]="${song}"
+find $DIR -mindepth 1 -printf '%P\n' | fzf -m --layout reverse | while read -r song; do
+  files[$i]="$DIR/${song}"
   ((i++))
 done
 
-mpv $files
+# use mpv playlist
+#mpv $files
+
+# use task spooler
+for file in $files[@]; do
+  tsp mpv --quiet --geometry=-15-60 --autofit=854x480 --title="mpvfloat" "$file" >/dev/null 2>&1 
+done
+
 }
