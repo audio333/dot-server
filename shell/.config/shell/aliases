@@ -141,50 +141,77 @@ se() {
 }
 
 ts-ytd() { 
-ARG="${1:-480p}" #set default format
+arg="${1:-480p}" #set default format
 
-case "$ARG" in
-  m4a) FORMAT="139" ;;
-  360p) FORMAT="134+139" ;;
-  480p) FORMAT="135+139" ;;
-  720p) FORMAT="136+139" ;;
-  1080p) FORMAT="137+139" ;;
+case "$arg" in
+  m4a) format="139" ;;
+  360p) format="134+139" ;;
+  480p) format="135+139" ;;
+  720p) format="136+139" ;;
+  1080p) format="137+139" ;;
 esac >/dev/null
 
 for link in $(ytfzf -L | xargs); do
-  tsp yt-dlp --format "${FORMAT}" "${link}"
+  tsp yt-dlp --format "${format}" "${link}"
 done
 }
 
-ts-ytp() { 
-for link in $(ytfzf -L | xargs); do
-  tsp mpv --quiet --geometry=-15-60 --autofit=854x480 --title="mpvfloat" "$link" >/dev/null 2>&1 
-done
-}
+#ts-ytw() { 
+#for link in $(ytfzf -L | xargs); do
+#  tsp mpv --quiet --geometry=-15-60 --autofit=854x480 --title="mpvfloat" "$link" >/dev/null 2>&1 
+#done
+#}
+#
+## play local videos / music
+#ts-play() {
+#ARG="${1:-v}" # set default dir
+#
+#declare -a files
+#declare -i i=1
+#
+#case "$ARG" in
+#  v) DIR="$HOME/video" ;;
+#  m) DIR="$HOME/music" ;;
+#esac >/dev/null
+#
+#find $DIR -mindepth 1 -printf '%P\n' | fzf -m --layout reverse | while read -r song; do
+#  files[$i]="$DIR/${song}"
+#  ((i++))
+#done
+#
+## use mpv playlist
+##mpv $files
+#
+## use task spooler
+#for file in $files[@]; do
+#  tsp mpv --quiet --geometry=-15-60 --autofit=854x480 --title="mpvfloat" "$file" >/dev/null 2>&1 
+#done
+#
+#}
 
-# play local videos / music
 ts-play() {
-ARG="${1:-v}" # set default dir
-
 declare -a files
 declare -i i=1
 
-case "$ARG" in
-  v) DIR="$HOME/video" ;;
-  m) DIR="$HOME/music" ;;
-esac >/dev/null
+if [ -z "$1" ]; then
+  dir="$HOME/video"
 
-find $DIR -mindepth 1 -printf '%P\n' | fzf -m --layout reverse | while read -r song; do
-  files[$i]="$DIR/${song}"
-  ((i++))
-done
+  find $dir -mindepth 1 -printf '%P\n' | fzf -m --layout reverse | while read -r song; do
+    files[$i]="$dir/${song}"
+    ((i++))
+  done
+else
+  for link in $(ytfzf -L | xargs); do
+    files[$i]="$link"
+    ((i++))
+  done
+fi
 
 # use mpv playlist
 #mpv $files
 
 # use task spooler
 for file in $files[@]; do
-  tsp mpv --quiet --geometry=-15-60 --autofit=854x480 --title="mpvfloat" "$file" >/dev/null 2>&1 
+  tsp mpv --quiet --geometry=-15-60 --autofit=854x480 --title="mpvfloat" "$file" >/dev/null 2>&1
 done
-
 }
