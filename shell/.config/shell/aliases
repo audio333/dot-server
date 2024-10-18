@@ -150,7 +150,7 @@ se() {
   [ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
 }
 
-ts-ytd() { 
+qd() { 
 arg="${1:-480p}" #set default format
 
 case "$arg" in
@@ -199,29 +199,29 @@ done
 #
 #}
 
-ts-play() {
+qv() {
 declare -a files
 declare -i i=1
+dir="$HOME/video"
+title="mpv float"
 
-if [ -z "$1" ]; then
-  dir="$HOME/video"
-
-  find $dir -mindepth 1 -printf '%P\n' | fzf -m --layout reverse | while read -r song; do
-    files[$i]="$dir/${song}"
-    ((i++))
-  done
-else
-  for link in $(ytfzf -L | xargs); do
-    files[$i]="$link"
-    ((i++))
-  done
-fi
+case "$1" in
+  y) for link in $(ytfzf -L ${@:2} | xargs); do files[$i]="$link"; ((i++)); title="yt"; done ;; # ytfzf search
+  *youtube.com/watch*|*youtube.com/playlist*|*youtube.com/shorts*|*youtu.be*) files[$i]="$1"; title="yt" ;; # feed yt link
+  *) find $dir -mindepth 1 -printf '%P\n' | fzf -m --layout reverse | while read -r song; do files[$i]="$dir/${song}"; ((i++)); title="local"; done ;; # local video
+esac >/dev/null
 
 # use mpv playlist
 #mpv $files
 
 # use task spooler
 for file in $files[@]; do
-  tsp-md mpv --quiet --geometry=-15-60 --autofit=854x480 --title="mpvfloat" "$file" >/dev/null 2>&1
+  tsp-md mpv --quiet --geometry=-15-60 --autofit=854x480 --title="$title" "$file" >/dev/null 2>&1
 done
 }
+
+
+#title=`youtube-dl --skip-download --get-title $1`
+#mpv --no-video --term-playing-msg "### $title ###" $1
+
+#title=$(yt-dlp --skip-download --get-title $link)
