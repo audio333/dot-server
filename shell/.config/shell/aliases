@@ -151,7 +151,8 @@ se() {
 }
 
 qd() { 
-arg="${1:-480p}" #set default format
+arg="${2:-480p}" #set default format
+hist=$HOME/.local/share/yt_history
 
 case "$arg" in
   m4a) format="139" ;;
@@ -161,9 +162,13 @@ case "$arg" in
   1080p) format="137+139" ;;
 esac >/dev/null
 
-for link in $(ytfzf -L | xargs); do
-  tsp-dl yt-dlp --format "${format}" "${link}"
-done
+[ ! -f $hist ] && touch $hist
+
+case "$1" in
+  h) for link in $(grep -v '^#' "$hist" | fzf -m --layout reverse | cut -d' ' -f1); do tsp-dl yt-dlp --format "${format}" "${link}"; done ;;
+  *youtube.com/watch*|*youtube.com/playlist*|*youtube.com/shorts*|*youtu.be*) tsp-dl yt-dlp --format "${format}" "$1" ;; # feed yt link
+  *) for link in $(ytfzf -L | xargs); do tsp-dl yt-dlp --format "${format}" "${link}"; done ;;
+esac >/dev/null
 }
 
 #ts-ytw() { 
@@ -203,25 +208,31 @@ qv() {
 declare -a files
 declare -i i=1
 dir="$HOME/video"
-title="mpv float"
+src="mpv float"
+hist="$HOME/.local/share/yt_history"
+title=""
+
+[ ! -f $hist ] && touch $hist
 
 case "$1" in
-  y) for link in $(ytfzf -L ${@:2} | xargs); do files[$i]="$link"; ((i++)); title="yt"; done ;; # ytfzf search
-  *youtube.com/watch*|*youtube.com/playlist*|*youtube.com/shorts*|*youtu.be*) files[$i]="$1"; title="yt" ;; # feed yt link
-  *) find $dir -mindepth 1 -printf '%P\n' | fzf -m --layout reverse | while read -r song; do files[$i]="$dir/${song}"; ((i++)); title="local"; done ;; # local video
+  "") find $dir -mindepth 1 -printf '%P\n' | fzf -m --layout reverse | while read -r song; do files[$i]="$dir/${song}"; ((i++)); src="local"; done ;; # local video
+  *youtube.com/watch*|*youtube.com/playlist*|*youtube.com/shorts*|*youtu.be*) files[$i]="$1"; src="yt" ;; # feed yt link
+  *) for link in $(ytfzf -L ${@:2} | xargs); do files[$i]="$link"; ((i++)); src="yt"; done ;; # ytfzf search
 esac >/dev/null
+
+for file in $files[@]; do
+  # history log
+  if [[ -z "$1" ]] || grep -q "$file" "$hist"; then
+    echo "already watched"
+  else
+    title=$(yt-dlp --skip-download --get-title "$file")
+    echo "${file}          # ${title}" >> "$hist" 
+  fi
+
+  # use task spooler
+  tsp-md mpv --quiet --geometry=-15-60 --autofit=854x480 --title="$src" "$file" >/dev/null 2>&1
+done
 
 # use mpv playlist
 #mpv $files
-
-# use task spooler
-for file in $files[@]; do
-  tsp-md mpv --quiet --geometry=-15-60 --autofit=854x480 --title="$title" "$file" >/dev/null 2>&1
-done
 }
-
-
-#title=`youtube-dl --skip-download --get-title $1`
-#mpv --no-video --term-playing-msg "### $title ###" $1
-
-#title=$(yt-dlp --skip-download --get-title $link)
