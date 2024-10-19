@@ -151,15 +151,15 @@ se() {
 }
 
 qd() { 
-arg="${2:-480p}" #set default format
+arg="${2:-480}" # set default format
 hist=$HOME/.local/share/yt_history
 
 case "$arg" in
   m4a) format="139" ;;
-  360p) format="134+139" ;;
-  480p) format="135+139" ;;
-  720p) format="136+139" ;;
-  1080p) format="137+139" ;;
+  360) format="134+139" ;;
+  480) format="135+139" ;;
+  720) format="136+139" ;;
+  1080) format="137+139" ;;
 esac >/dev/null
 
 [ ! -f $hist ] && touch $hist
@@ -208,16 +208,18 @@ qv() {
 declare -a files
 declare -i i=1
 dir="$HOME/video"
-src="mpv float"
+src="local"
 hist="$HOME/.local/share/yt_history"
 title=""
+format="${2:-480}" # set default format
 
 [ ! -f $hist ] && touch $hist
 
 case "$1" in
   "") find $dir -mindepth 1 -printf '%P\n' | fzf -m --layout reverse | while read -r song; do files[$i]="$dir/${song}"; ((i++)); src="local"; done ;; # local video
+  h) for link in $(grep -v '^#' "$hist" | fzf -m --layout reverse | cut -d' ' -f1); do files[$i]="$link"; ((i++)); src="yt history"; done ;; # yt_history
   *youtube.com/watch*|*youtube.com/playlist*|*youtube.com/shorts*|*youtu.be*) files[$i]="$1"; src="yt" ;; # feed yt link
-  *) for link in $(ytfzf -L ${@:2} | xargs); do files[$i]="$link"; ((i++)); src="yt"; done ;; # ytfzf search
+  *) for link in $(ytfzf -L | xargs); do files[$i]="$link"; ((i++)); src="yt"; done ;; # ytfzf search
 esac >/dev/null
 
 for file in $files[@]; do
@@ -230,7 +232,7 @@ for file in $files[@]; do
   fi
 
   # use task spooler
-  tsp-md mpv --quiet --geometry=-15-60 --autofit=854x480 --title="$src" "$file" >/dev/null 2>&1
+  tsp-md mpv --ytdl-format="bestvideo[height<=?${format}]+bestaudio/best" --quiet --geometry=-15-60 --autofit=854x480 --title="$src" "$file" >/dev/null 2>&1
 done
 
 # use mpv playlist
