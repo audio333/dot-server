@@ -208,7 +208,7 @@ esac >/dev/null
 #
 #}
 
-qv() {
+qr() {
 declare -a files
 declare -i i=1
 dir="$HOME/video"
@@ -241,4 +241,92 @@ done
 
 # use mpv playlist
 #mpv $files
+}
+
+
+qv() {
+declare -a files
+declare -i i=1
+
+format="480"
+hist="$HOME/.local/share/yt_history"
+
+while [ $# -gt 0 ]; do
+  case $1 in
+    -y) # ytfzf 
+    for link in $(ytfzf -L | xargs); do 
+      files[$i]="$link" 
+      ((i++)) 
+      src="yt" 
+    done
+    ;;
+    -d) # dir
+    if [[ -z "$2" || "$2" == -* ]]; then
+      dir="$HOME/video"
+    else
+      dir="$2"
+    fi
+
+    find $dir -mindepth 1 -printf '%P\n' | fzf -m --layout reverse | while read -r song; do
+      files[$i]="$dir/${song}" 
+      ((i++)) 
+      src="local" 
+    done
+    ;;
+    -f) # yt_history / file with list of urls
+    if [[ -z "$2" || "$2" == -* ]]; then
+      hist="$HOME/.local/share/yt_history"
+    else
+      hist="$2"
+    fi
+
+    for link in $(grep -v '^#' "$hist" | fzf -m --layout reverse | cut -d' ' -f1); do 
+      files[$i]="$link" 
+      ((i++)) 
+      src="yt_history" 
+    done
+    ;;
+    -u) # url
+    if [[ -z "$2" || "$2" == -* ]]; then
+      echo "Link not specified"
+    fi
+
+    url="$2"
+    files[$i]="$url"
+    src="yt"
+    ;;
+    -F) # video format
+    if [[ -z "$2" || "$2" == -* ]]; then
+      format="480"
+    else
+      format="$2"
+    fi
+    ;;
+  esac
+
+  shift
+done
+
+for file in $files[@]; do
+  # check if link is valid
+  regex='(https?|ftp|file)://[-[:alnum:]\+&@#/%?=~_|!:,.;]*[-[:alnum:]\+&@#/%=~_|]'
+
+  # use task spooler
+  if [[ $file =~ $regex ]]; then
+    tsp-md mpv --ytdl-format="bestvideo[height<=?${format}]+bestaudio/best" --quiet --geometry=-15-60 --autofit=854x480 --title="$src" "$file" >/dev/null 2>&1
+
+    # history log
+    title=$(yt-dlp --skip-download --get-title "$file")
+
+    if grep -q "$file" "$hist"; then
+      echo "already watched - ${title}"
+    else
+      echo "${file}          # ${title}" >> "$hist" 
+      echo "url saved - ${title}"
+    fi
+
+  else
+    tsp-md mpv --quiet --geometry=-15-60 --autofit=854x480 --title="$src" "$file" >/dev/null 2>&1
+  fi
+done
 }
