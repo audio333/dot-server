@@ -150,6 +150,10 @@ se() {
   [ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
 }
 
+dlp() {
+  tsp-dl yt-dlp -o "%(title)s - %(uploader)s.%(ext)s" --embed-metadata --restrict-filenames --format "$1" "$2"
+}
+
 qd() { 
 arg="${2:-480}" # set default format
 hist=$HOME/.local/share/yt_history
@@ -165,9 +169,9 @@ esac >/dev/null
 [ ! -f $hist ] && touch $hist
 
 case "$1" in
-  h) for link in $(grep -v '^#' "$hist" | fzf -m --layout reverse | cut -d' ' -f1); do tsp-dl yt-dlp --format "${format}" "${link}"; done ;;
-  *youtube.com/watch*|*youtube.com/playlist*|*youtube.com/shorts*|*youtu.be*) tsp-dl yt-dlp --format "${format}" "$1" ;; # feed yt link
-  *) for link in $(ytfzf -L | xargs); do tsp-dl yt-dlp --format "${format}" "${link}"; done ;;
+  h) for link in $(grep -v '^#' "$hist" | fzf -m --layout reverse | cut -d' ' -f1); do dlp "$format" "$link"; done ;; # yt_history
+  *youtube.com/watch*|*youtube.com/playlist*|*youtube.com/shorts*|*youtu.be*) dlp "$format" "$link" ;; # feed yt link
+  *) for link in $(ytfzf -L | xargs); do dlp "$format" "$link"; done ;; # ytfzf search
 esac >/dev/null
 }
 
