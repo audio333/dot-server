@@ -1,4 +1,8 @@
-[ -f "$XINITRC" ] && alias startx="startx $XINITRC"  # use $XINITRC variable if file exists.
+# Use neovim for vim if present.
+[ -x "$(command -v nvim)" ] && alias vim="nvim" vimdiff="nvim -d"
+
+# Use $XINITRC variable if file exists.
+[ -f "$XINITRC" ] && alias startx="startx $XINITRC"  
 
 # CONFIGURATION 
 #alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
@@ -243,61 +247,64 @@ done
 #mpv $files
 }
 
+log_history(){
+  link=$1
+  hist=$2
+  title=$(yt-dlp --skip-download --get-title $1)
+
+  if grep -q "$link" "$hist"; then
+    echo "already watched - ${title}"
+  else
+    echo "${link}          # ${title}" >> "$hist" 
+    echo "url saved - ${title}"
+  fi
+
+}
 
 qv() {
-declare -a files
-declare -i i=1
-
-format="480"
+dir="$HOME/video"
 hist="$HOME/.local/share/yt_history"
+urls=() # array
+format="480"
+src="yt"
 
 while [ $# -gt 0 ]; do
   case $1 in
     -y) # ytfzf 
     for link in $(ytfzf -L | xargs); do 
-      files[$i]="$link" 
-      ((i++)) 
-      src="yt" 
+      urls+=("$link")
     done
     ;;
     -d) # dir
     if [[ -z "$2" || "$2" == -* ]]; then
-      dir="$HOME/video"
+      echo "default dir: ${dir}"
     else
-      dir="$2"
+      [[ -d "$2" ]] && dir="$2"
     fi
 
     find $dir -mindepth 1 -printf '%P\n' | fzf -m --layout reverse | while read -r song; do
-      files[$i]="$dir/${song}" 
-      ((i++)) 
-      src="local" 
+      tsp-md mpv --quiet --geometry=-15-60 --autofit=854x480 --title="local" "$dir/$song" >/dev/null 2>&1
     done
     ;;
     -f) # yt_history / file with list of urls
     if [[ -z "$2" || "$2" == -* ]]; then
-      hist="$HOME/.local/share/yt_history"
+      echo "default hist file: ${hist}"
     else
-      hist="$2"
+      [[ -f "$2" ]] && hist="$2"
     fi
 
     for link in $(grep -v '^#' "$hist" | fzf -m --layout reverse | cut -d' ' -f1); do 
-      files[$i]="$link" 
-      ((i++)) 
-      src="yt_history" 
+      urls+=("$link")
     done
     ;;
     -u) # url
-    if [[ -z "$2" || "$2" == -* ]]; then
-      echo "Link not specified"
-    fi
+    [[ -z "$2" || "$2" == -* ]] && echo "Link not specified";
 
-    url="$2"
-    files[$i]="$url"
-    src="yt"
+    urls+=("$2")
     ;;
     -F) # video format
     if [[ -z "$2" || "$2" == -* ]]; then
-      format="480"
+      echo "default format: ${format}"
     else
       format="$2"
     fi
@@ -307,26 +314,16 @@ while [ $# -gt 0 ]; do
   shift
 done
 
-for file in $files[@]; do
-  # check if link is valid
-  regex='(https?|ftp|file)://[-[:alnum:]\+&@#/%?=~_|!:,.;]*[-[:alnum:]\+&@#/%=~_|]'
+# check if link is valid
+regex='(https?|ftp|file)://[-[:alnum:]\+&@#/%?=~_|!:,.;]*[-[:alnum:]\+&@#/%=~_|]'
 
-  # use task spooler
-  if [[ $file =~ $regex ]]; then
-    tsp-md mpv --ytdl-format="bestvideo[height<=?${format}]+bestaudio/best" --quiet --geometry=-15-60 --autofit=854x480 --title="$src" "$file" >/dev/null 2>&1
-
-    # history log
-    title=$(yt-dlp --skip-download --get-title "$file")
-
-    if grep -q "$file" "$hist"; then
-      echo "already watched - ${title}"
+for url in ${urls[@]}; do
+    if [[ $url =~ $regex ]]; then
+      # use task spooler then log to yt_history
+      tsp-md mpv --ytdl-format="bestvideo[height<=?${format}]+bestaudio/best" --quiet --geometry=-15-60 --autofit=854x480 --title="$src" "$url" >/dev/null 2>&1
+      log_history "$url" "$hist"
     else
-      echo "${file}          # ${title}" >> "$hist" 
-      echo "url saved - ${title}"
+      echo "Invalid URL"
     fi
-
-  else
-    tsp-md mpv --quiet --geometry=-15-60 --autofit=854x480 --title="$src" "$file" >/dev/null 2>&1
-  fi
 done
 }
