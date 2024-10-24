@@ -58,13 +58,12 @@ HISTFILE="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/history"   # where to save zsh his
 [ -d "$XDG_CACHE_HOME"/zsh ] || mkdir -p "$XDG_CACHE_HOME"/zsh
 
 #--------------------------------
-# load alias/functions that works with both zsh/bash
+# Load aliases and shortcuts if existent.
 #--------------------------------
-[ -f "${XDG_CONFIG_HOME}/shell/aliases" ] && source "${XDG_CONFIG_HOME}/shell/aliases"
-
-#if [[ -f ~/.aliasrc ]]; then
-#    source ~/.aliasrc
-#fi
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/aliasrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutenvrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/shortcutenvrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/zshnameddirrc"
 
 #--------------------------------
 # Basic auto/tab complete:
@@ -202,3 +201,5 @@ source ~/.config/zsh/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zs
 #xhost +si:localuser:$USER
 
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
+
+export PATH="$PATH:/opt/nvim-linux64/bin"

@@ -8,82 +8,83 @@
 #alias wget=wget --hsts-file="$XDG_DATA_HOME/wget-hsts"
 
 # dot-ubuntu
-cfg-xmodmap() { $EDITOR $XDG_CONFIG_HOME/x11/.Xmodmap ;}
-cfg-xresources() { $EDITOR $XDG_CONFIG_HOME/x11/.Xresources ;}
-cfg-xinitrc() { $EDITOR $XDG_CONFIG_HOME/x11/xinitrc ;}
-cfg-sxhkd() { $EDITOR $XDG_CONFIG_HOME/sxhkd/sxhkdrc ;}
-cfg-qutebrowser() { $EDITOR ~/.config/qutebrowser/qutebrowser.conf ;}
-cfg-qutebrowser-keys() { $EDITOR ~/.config/qutebrowser/keys.conf ;}
-cfg-qutebrowser-quickmarks() { $EDITOR ~/.config/qutebrowser/quickmarks ;}
-cfg-transmission-daemon() { $EDITOR ~/.config/transmission-daemon/settings.json ;}
-cfg-transmission-ncurse() { $EDITOR ~/.config/transmission-remote-cli/settings.cfg ;}
-cfg-transmission-tremc() { $EDITOR ~/.config/tremc/settings.cfg ;}
-cfg-torrentflix() { torrentflix --config=$EDITOR ;}
-cfg-pulseaudio() { sudo $EDITOR /etc/pulse/default.pa ;}
-cfg-bashrc() { $EDITOR ~/.bashrc ;}
+alias cfg-xmodmap="$EDITOR $XDG_CONFIG_HOME/x11/.Xmodmap"
+alias cfg-xresources="$EDITOR $XDG_CONFIG_HOME/x11/.Xresources"
+alias cfg-xinitrc="$EDITOR $XDG_CONFIG_HOME/x11/xinitrc" # bm-files
+alias cfg-sxhkd="$EDITOR $XDG_CONFIG_HOME/sxhkd/sxhkdrc" # bm-files
+alias cfg-qutebrowser="$EDITOR ~/.config/qutebrowser/qutebrowser.conf"
+alias cfg-qutebrowser-keys="$EDITOR ~/.config/qutebrowser/keys.conf"
+alias cfg-qutebrowser-quickmarks="$EDITOR ~/.config/qutebrowser/quickmarks"
+alias cfg-transmission-daemon="$EDITOR ~/.config/transmission-daemon/settings.json"
+alias cfg-transmission-ncurse="$EDITOR ~/.config/transmission-remote-cli/settings.cfg"
+alias cfg-transmission-tremc="$EDITOR ~/.config/tremc/settings.cfg"
+alias cfg-torrentflix="torrentflix --config=$EDITOR"
+alias cfg-pulseaudio="$EDITOR /etc/pulse/default.pa"
+alias cfg-bashrc="$EDITOR ~/.bashrc"
 
 # dot-server
-cfg-zshenv() { $EDITOR ~/.zshenv ;}
-cfg-zshrc() { $EDITOR $XDG_CONFIG_HOME/zsh/.zshrc ;}
-cfg-zprofile() { $EDITOR $XDG_CONFIG_HOME/zsh/.zprofile ;}
-cfg-aliases() { $EDITOR $XDG_CONFIG_HOME/shell/aliases ;}
-cfg-ranger() { $EDITOR ~/.config/ranger/rc.conf ;}
-cfg-ranger-rifle() { $EDITOR ~/.config/ranger/rifle.conf ;}
-cfg-ranger-commands() { $EDITOR ~/.config/ranger/commands.py ;}
-cfg-nvim() { $EDITOR ~/.config/nvim/init.vim ;}
-cfg-vimrc() { $EDITOR ~/.vimrc ;}
-cfg-tmuxrc() { $EDITOR ~/.tmux.conf ;}
+alias cfg-zshenv="$EDITOR ~/.zshenv" 
+alias cfg-zshrc="$EDITOR $XDG_CONFIG_HOME/zsh/.zshrc" # bm-files 
+alias cfg-zprofile="$EDITOR $XDG_CONFIG_HOME/zsh/.zprofile"
+alias cfg-aliasrc="$EDITOR $XDG_CONFIG_HOME/shell/aliasrc" # bm-files
+alias cfg-ranger="$EDITOR ~/.config/ranger/rc.conf"
+alias cfg-ranger-rifle="$EDITOR ~/.config/ranger/rifle.conf"
+alias cfg-ranger-commands="$EDITOR ~/.config/ranger/commands.py"
+alias cfg-nvim="$EDITOR ~/.config/nvim/init.vim"
+alias cfg-vimrc="$EDITOR ~/.vimrc"
+alias cfg-tmuxrc="$EDITOR ~/.tmux.conf"
 
 # dot-xui
-cfg-newsboat() { $EDITOR $XDG_CONFIG_HOME/newsboat/config ;}
-cfg-newsboat-urls() { $EDITOR $XDG_CONFIG_HOME/newsboat/urls ;}
-cfg-mpv() { $EDITOR ~/.config/mpv/mpv.conf ;}
-cfg-mpv-input() { $EDITOR ~/.config/mpv/input.conf ;}
-cfg-alacritty() { $EDITOR ~/.config/alacritty/alacritty.yml ;}
-cfg-ytfzf() { $EDITOR ~/.config/ytfzf/conf.sh ;}
+alias cfg-newsboat="$EDITOR $XDG_CONFIG_HOME/newsboat/config" # bm-files
+alias cfg-newsboat-urls="$EDITOR $XDG_CONFIG_HOME/newsboat/urls" # bm-files
+alias cfg-mpv="$EDITOR ~/.config/mpv/mpv.conf"
+alias cfg-mpv-input="$EDITOR ~/.config/mpv/input.conf"
+alias cfg-alacritty="$EDITOR ~/.config/alacritty/alacritty.yml"
+alias cfg-ytfzf="$EDITOR ~/.config/ytfzf/conf.sh"
 
 # dot-dbox
-cfg-lf() { $EDITOR ~/.config/lf/lfrc ;}
+alias cfg-lf="$EDITOR ~/.config/lf/lfrc" # bm-files
 
 # suckless
-cfg-dwm() { $EDITOR ~/source-code/dwm/config.h }
-cfg-dwmblocks() { $EDITOR ~/source-code/dwmblocks/config.h }
-cfg-st() { $EDITOR ~/source-code/st/config.h }
+alias cfg-dwm="$EDITOR ~/.local/src/dwm/config.h" # bm-files
+alias cfg-dwmblocks="$EDITOR ~/.local/src/dwmblocks/config.h"
+alias cfg-st="$EDITOR ~/.local/src/st/config.h"
 
 # system 
-cfg-hosts() { sudo $EDITOR /etc/hosts ;}
-cfg-ssh-client() { sudo $EDITOR /etc/ssh/ssh_config ;}
-cfg-ssh-daemon() { sudo $EDITOR /etc/ssh/sshd_config ;}
-cfg-fstab() { sudo $EDITOR /etc/fstab ;}
-cfg-group() { sudo $EDITOR /etc/group ;}
-cfg-grub() { sudo $EDITOR /etc/default/grub ;}
-cfg-samba() { sudo $EDITOR /etc/samba/smb.conf ;}
-cfg-networkmanager() { sudo $EDITOR /etc/NetworkManager/NetworkManager.conf ;}
+alias cfg-hosts="sudo $EDITOR /etc/hosts"
+alias cfg-ssh-client="sudo $EDITOR /etc/ssh/ssh_config"
+alias cfg-ssh-daemon="sudo $EDITOR /etc/ssh/sshd_config"
+alias cfg-fstab="sudo $EDITOR /etc/fstab"
+alias cfg-group="sudo $EDITOR /etc/group"
+alias cfg-grub="sudo $EDITOR /etc/default/grub"
+alias cfg-samba="sudo $EDITOR /etc/samba/smb.conf"
+alias cfg-networkmanager="sudo $EDITOR /etc/NetworkManager/NetworkManager.conf"
 
 # other apps
-cfg-nanorc() { $EDITOR ~/.nanorc;}
-#cfg-mplayer() { $EDITOR ~/.mplayer/config ;}
-#cfg-comp() { $EDITOR ~/.config/mpv/settings.ini ;}
-#cfg-rofibangs() { $EDITOR ~/.config/rofi/launchers/rofi-bangs ;}
-#cfg-mpd() { $EDITOR ~/.mpd/mpd.conf ;}
-#cfg-ncmpcpp() { $EDITOR ~/.ncmpcpp/config ;}
-#cfg-ncmpcpp-bindings() { $EDITOR ~/.ncmpcpp/bindings ;}
-#cfg-retroarch() { $EDITOR ~/.config/retroarch/retroarch.cfg ;}
-#cfg-emulationstation() { $EDITOR ~/.emulationstation/es_systems.cfg ;}
+alias cfg-nanorc="$EDITOR ~/.nanorc"
+# alias cfg-mplayer="$EDITOR ~/.mplayer/config"
+# alias cfg-comp="$EDITOR ~/.config/mpv/settings.ini"
+# alias cfg-rofibangs="$EDITOR ~/.config/rofi/launchers/rofi-bangs"
+# alias cfg-mpd="$EDITOR ~/.mpd/mpd.conf"
+# alias cfg-ncmpcpp="$EDITOR ~/.ncmpcpp/config"
+# alias cfg-ncmpcpp-bindings="$EDITOR ~/.ncmpcpp/bindings"
+# alias cfg-retroarch="$EDITOR ~/.config/retroarch/retroarch.cfg"
+# alias cfg-emulationstation="$EDITOR ~/.emulationstation/es_systems.cfg"
 
 # other configs
-cfg-inputrc() { $EDITOR ~/.inputrc ;}
-cfg-profile() { $EDITOR ~/.profile ;}
+alias cfg-inputrc="$EDITOR ~/.inputrc"
+alias cfg-profile="$EDITOR ~/.profile"
 
 # RELOAD CONFIGS
-rld-zshrc() { source $XDG_CONFIG_HOME/zsh/.zshrc ;}
-rld-xmodmap() { xmodmap $XDG_CONFIG_HOME/x11/.Xmodmap ;}
-rld-hyperkey() { xmodmap $XDG_CONFIG_HOME/x11/.Xmodmap; killall xcape ; xcape -e 'Super_L=Escape' ; }
-rld-xresources() { xrdb -load $XDG_CONFIG_HOME/x11/.Xresources ;}
-rld-xcape() { killall xcape ; xcape -e 'Super_L=Escape' ;}
-rld-xmodmap-uskeyboardlayout() { setxkbmap -layout us ;} # reset back to US keyboard http://unix.stackexchange.com/a/151046
-rld-bashrc() { source ~/.bashrc ;}
-rld-font() { fc-cache -v -f ;}
+alias rld-zshrc="$XDG_CONFIG_HOME/zsh/.zshrc"
+alias rld-xmodmap="$XDG_CONFIG_HOME/x11/.Xmodmap"
+alias rld-xresources="$XDG_CONFIG_HOME/x11/.Xresources"
+alias rld-xcape="killall xcape ; xcape -e 'Super_L=Escape'"
+alias rld-xmodmap-uskeyboardlayout="setxkbmap -layout us" # reset back to US keyboard http://unix.stackexchange.com/a/151046
+rld-hyperkey() { $XDG_CONFIG_HOME/x11/.Xmodmap; killall xcape ; xcape -e 'Super_L=Escape' ; }
+
+alias rld-bashrc="source ~/.bashrc"
+alias rld-font="fc-cache -v -f"
 
 
 # settings for common commands
@@ -102,6 +103,7 @@ alias v="$EDITOR"
 alias vw="$EDITOR -c VimwikiIndex"
 alias nb="newsboat"
 alias za="zathura"
+alias lf="lfub"
 
 # git aliases
 alias g="git"
@@ -261,7 +263,7 @@ log_history(){
 
 }
 
-qv() {
+qvb() {
 dir="$HOME/video"
 hist="$HOME/.local/share/yt_history"
 urls=() # array
