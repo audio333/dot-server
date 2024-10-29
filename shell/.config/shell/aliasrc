@@ -104,6 +104,8 @@ alias vw="$EDITOR -c VimwikiIndex"
 alias nb="newsboat"
 alias za="zathura"
 alias lf="lfub"
+alias bat="batcat"
+alias cmus='tmux new-session -A -D -s cmus "$(type -p cmus)"'
 
 # git aliases
 alias g="git"
@@ -151,9 +153,17 @@ tsp-clear() {
 #esac >/dev/null
 #}
 
-se() {
-  choice="$(find ~/.local/bin/ -mindepth 1 -printf '%P\n' | fzf --layout reverse)"
-  [ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
+# se() {
+#   choice="$(find ~/.local/bin/ -mindepth 1 -printf '%P\n' | fzf --layout reverse)"
+#   [ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
+# }
+
+cdf() {
+  cd "$(find -type d 2>/dev/null | fzf)" && ls -A
+}
+
+open() {
+  xdg-open "$(find -type f 2>/dev/null | fzf --layout reverse --preview="batcat --color=always {}")"
 }
 
 dlp() {
