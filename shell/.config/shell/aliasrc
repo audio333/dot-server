@@ -46,9 +46,10 @@ alias cfg-ytfzf="$EDITOR ~/.config/ytfzf/conf.sh"
 alias cfg-lf="$EDITOR ~/.config/lf/lfrc" # bm-files
 
 # suckless
-alias cfg-dwm="$EDITOR ~/.local/src/dwm/config.h" # bm-files
-alias cfg-dwmblocks="$EDITOR ~/.local/src/dwmblocks/config.h"
+alias cfg-dwm="$EDITOR ~/.local/src/dwm/config.h"
+alias cfg-dwmblocks="$EDITOR ~/.local/src/dwmblocks/config.h" # bm-files
 alias cfg-st="$EDITOR ~/.local/src/st/config.h"
+alias cfg-dmenu="$EDITOR ~/.local/src/dmenu/config.h"
 
 # system 
 alias cfg-hosts="sudo $EDITOR /etc/hosts"
@@ -106,6 +107,9 @@ alias za="zathura"
 alias lf="lfub"
 alias bat="batcat"
 alias cmus='tmux new-session -A -D -s cmus "$(type -p cmus)"'
+alias blocks="nohup dwmblocks 2>/dev/null &"
+alias br="$BROWSER"
+cl() { cd "$@" && ls -A ;}
 
 # git aliases
 alias g="git"
@@ -133,8 +137,11 @@ tsp-clear() {
   TS_SOCKET=/tmp/dl tsp -C
 }
 
+## FZF
+export FZF_DEFAULT_OPTS="-i --layout=reverse --bind 'home:first,end:last'"
+
 # se() {
-#   choice="$(find ~/.local/bin/ -mindepth 1 -printf '%P\n' | fzf --layout reverse)"
+#   choice="$(find ~/.local/bin/ -mindepth 1 -printf '%P\n' | fzf)"
 #   [ -f "$HOME/.local/bin/$choice" ] && $EDITOR "$HOME/.local/bin/$choice"
 # }
 
@@ -143,5 +150,16 @@ cdf() {
 }
 
 open() {
-  xdg-open "$(find -type f 2>/dev/null | fzf --layout reverse --preview="batcat --color=always {}")"
+  xdg-open "$(find -type f 2>/dev/null | fzf --preview="batcat --color=always {}")"
 }
+
+cdz() {
+  cd "$(fasd -Rdl "$1" | fzf -1 -0 --no-sort +m)" &&  ls -A
+}
+
+# man pages
+fman() {
+    man -k . | fzf -q "$1" --prompt='man> '  --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man | col -bx | batcat -l man -p --color always' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
+}
+# get the colors in the opened man page itself
+export MANPAGER="sh -c 'col -bx | batcat -l man -p --paging always'"
