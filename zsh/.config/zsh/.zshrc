@@ -151,8 +151,9 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 #----------------------------------
 # Added to $PATH
 #----------------------------------
-export PATH="${PATH}:${HOME}/.local/bin/statusbar/"  #scripts for statusbar
-export PATH="${PATH}:${HOME}/torrentflix/bin/"       #torrentflix
+export PATH="${PATH}:${HOME}/.local/bin/statusbar/"
+export PATH="${PATH}:${HOME}/.local/bin/cron/"
+export PATH="${PATH}:${HOME}/torrentflix/bin/"
 
 #---------------------------
 #  pywal

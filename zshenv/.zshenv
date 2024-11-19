@@ -1,7 +1,7 @@
 # default apps
 export EDITOR="nvim"
 export TERMINAL="st"
-export BROWSER="brave-browser"
+export BROWSER="librewolf"
 
 # cleaning up home folder
 export XDG_CONFIG_HOME="$HOME/.config"
