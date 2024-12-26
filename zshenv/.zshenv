@@ -18,6 +18,9 @@ export NVM_DIR="$XDG_DATA_HOME"/nvm
 export LESSHISTFILE="-"
 #export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority" # This line will break some DMs.
 
+export MPD_HOST="0.0.0.0"
+export MPD_PORT="3600"
+
 # lf icons
 # icon issue: /etc/locale.conf "LANG=en_US.UTF-8"
 export LF_ICONS="\
